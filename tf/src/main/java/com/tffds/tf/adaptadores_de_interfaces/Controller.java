@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.ChegadaDeProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.SolicitarOrcamentoUC;
+import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
+import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class Controller {
     @GetMapping("catalogo")
     @CrossOrigin(origins = "*")
     public List<ProdutoDTO> produtosDisponiveis(){
-        return null;
+        return catalogo.run();
     }    
 
     @PostMapping("novoOrcamento")

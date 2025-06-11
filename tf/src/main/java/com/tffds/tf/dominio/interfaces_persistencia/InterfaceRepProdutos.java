@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface InterfaceRepProdutos {
     List<ProdutoModel> todos();
-    ProdutoModel consultaPorId(long codigo);
+    ProdutoModel consultaPorId(long id);
 }
