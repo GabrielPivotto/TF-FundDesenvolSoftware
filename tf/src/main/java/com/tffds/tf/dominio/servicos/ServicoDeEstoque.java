@@ -8,12 +8,12 @@ import com.tffds.tf.dominio.interfaces_persistencia.InterfaceRepProdutos;
 import com.tffds.tf.dominio.modelos.ItemDeEstoqueModel;
 import com.tffds.tf.dominio.modelos.ProdutoModel;
 
-//@Service
+@Service
 public class ServicoDeEstoque{
     private InterfaceRepEstoque estoque;
     private InterfaceRepProdutos produtos;
     
-//    @Autowired
+    @Autowired
     public ServicoDeEstoque(InterfaceRepProdutos produtos,InterfaceRepEstoque estoque){
         this.produtos = produtos;
         this.estoque = estoque;
@@ -25,11 +25,11 @@ public class ServicoDeEstoque{
     //        .map(ItemDeEstoqueModel::getProduto)
     //        .toList();
     //}
-//
-    //public ProdutoModel produtoPorCodigo(long id){
-    //    return this.produtos.consultaPorId(id);
-    //}
-//
+
+    public ProdutoModel produtoPorCodigo(long id){
+        return this.produtos.consultaPorId(id);
+    }
+
     //public int qtdadeEmEstoque(long id){
     //    ItemDeEstoqueModel item = estoque.findByProdutoId(id).orElse(null);
     //    if(item != null){

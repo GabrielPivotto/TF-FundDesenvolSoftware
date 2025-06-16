@@ -12,6 +12,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.ChegadaDeProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.SolicitarOrcamentoUC;
 import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
+import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
 import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
 
 import java.util.List;
@@ -24,11 +25,12 @@ public class Controller {
     private SolicitarOrcamentoUC solicitarOrcamento;
 
     @Autowired
-    public Controller(CatalogoProdutosUC catalogo) {
+    public Controller(CatalogoProdutosUC catalogo,
+                      SolicitarOrcamentoUC solicitarOrcamento) {
 
         this.catalogo = catalogo;
         //this.chegadaDeProdutos = chegadaDeProdutos;
-        //this.solicitarOrcamento = solicitarOrcamento;
+        this.solicitarOrcamento = solicitarOrcamento;
     }
 
     @GetMapping("")
@@ -43,11 +45,11 @@ public class Controller {
         return catalogo.run();
     }    
 
-    //@PostMapping("novoOrcamento")
-    //@CrossOrigin(origins = "*")
-    //public boolean novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
-    //    return true;
-    //}
+    @PostMapping("novoOrcamento")
+    @CrossOrigin(origins = "*")
+    public OrcamentoDTO novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
+        return solicitarOrcamento.run(itens);
+    }
 //
     //@GetMapping("efetivaOrcamento/{id}")
     //@CrossOrigin(origins = "*")
