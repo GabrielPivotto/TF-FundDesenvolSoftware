@@ -24,13 +24,11 @@ public class Controller {
     private SolicitarOrcamentoUC solicitarOrcamento;
 
     @Autowired
-    public Controller(CatalogoProdutosUC catalogo,
-                      ChegadaDeProdutosUC chegadaDeProdutos,
-                      SolicitarOrcamentoUC solicitarOrcamento){
+    public Controller(CatalogoProdutosUC catalogo) {
 
         this.catalogo = catalogo;
-        this.chegadaDeProdutos = chegadaDeProdutos;
-        this.solicitarOrcamento = solicitarOrcamento;
+        //this.chegadaDeProdutos = chegadaDeProdutos;
+        //this.solicitarOrcamento = solicitarOrcamento;
     }
 
     @GetMapping("")
@@ -45,15 +43,15 @@ public class Controller {
         return catalogo.run();
     }    
 
-    @PostMapping("novoOrcamento")
-    @CrossOrigin(origins = "*")
-    public boolean novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
-        return true;
-    }
-
-    @GetMapping("efetivaOrcamento/{id}")
-    @CrossOrigin(origins = "*")
-    public boolean efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
-        return true;
-    }
+    //@PostMapping("novoOrcamento")
+    //@CrossOrigin(origins = "*")
+    //public boolean novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
+    //    return true;
+    //}
+//
+    //@GetMapping("efetivaOrcamento/{id}")
+    //@CrossOrigin(origins = "*")
+    //public boolean efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
+    //    return true;
+    //}
 }

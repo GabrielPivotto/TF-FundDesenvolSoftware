@@ -1,5 +1,6 @@
 package com.tffds.tf.aplicacao.casos_de_uso;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
@@ -11,6 +12,7 @@ import java.util.List;
 public class CatalogoProdutosUC {
     private final ServicoProduto servicoProd;
 
+    @Autowired
     CatalogoProdutosUC(ServicoProduto servicoProd) {
         this.servicoProd = servicoProd;
     }

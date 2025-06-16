@@ -4,9 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
+
 import com.tffds.tf.dominio.interfaces_persistencia.InterfaceRepProdutos;
 import com.tffds.tf.dominio.modelos.ProdutoModel;
 
+@Repository
 public class RepProdutosJPA implements InterfaceRepProdutos{
     private InterfaceRepProdutoJPA repProd;
 
