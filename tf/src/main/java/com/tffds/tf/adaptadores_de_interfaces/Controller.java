@@ -3,16 +3,14 @@ package com.tffds.tf.adaptadores_de_interfaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
-import com.tffds.tf.aplicacao.casos_de_uso.ChegadaDeProdutosUC;
-import com.tffds.tf.aplicacao.casos_de_uso.SolicitarOrcamentoUC;
-import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
-import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
+import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
+import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
 import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
 
 import java.util.List;
@@ -21,16 +19,14 @@ import java.util.List;
 @RestController
 public class Controller {
     private CatalogoProdutosUC catalogo;
-    private ChegadaDeProdutosUC chegadaDeProdutos;
-    private SolicitarOrcamentoUC solicitarOrcamento;
+    private QuantidadeDisponivelProdutoUC qtdProd;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
-                      SolicitarOrcamentoUC solicitarOrcamento) {
+                      QuantidadeDisponivelProdutoUC qtdProd) {
 
         this.catalogo = catalogo;
-        //this.chegadaDeProdutos = chegadaDeProdutos;
-        this.solicitarOrcamento = solicitarOrcamento;
+        this.qtdProd = qtdProd;
     }
 
     @GetMapping("")
@@ -45,15 +41,9 @@ public class Controller {
         return catalogo.run();
     }    
 
-    @PostMapping("novoOrcamento")
+    @GetMapping("quantidadeDisponivelProduto")
     @CrossOrigin(origins = "*")
-    public OrcamentoDTO novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
-        return solicitarOrcamento.run(itens);
+    public List<ItemDeEstoqueDTO> qtdDisponivelProd(){
+        return qtdProd.run();
     }
-//
-    //@GetMapping("efetivaOrcamento/{id}")
-    //@CrossOrigin(origins = "*")
-    //public boolean efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
-    //    return true;
-    //}
 }

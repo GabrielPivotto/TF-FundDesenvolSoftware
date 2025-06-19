@@ -1,6 +1,6 @@
 package com.tffds.tf.aplicacao.dtos;
 
-import com.tffds.tf.adaptadores_de_interfaces.persistencia.Produto;
+import com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia.Produto;
 import com.tffds.tf.dominio.modelos.ProdutoModel;
 
 public class ProdutoDTO {

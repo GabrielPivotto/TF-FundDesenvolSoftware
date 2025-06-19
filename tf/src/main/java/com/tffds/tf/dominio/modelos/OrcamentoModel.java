@@ -66,7 +66,7 @@ public class OrcamentoModel {
     }
 
     public double getCustoConsumidor() {
-        return custoConsumidor;
+        return custoConsumidor + imposto * desconto;
     }
 
     public void setCustoConsumidor(double custoConsumidor){

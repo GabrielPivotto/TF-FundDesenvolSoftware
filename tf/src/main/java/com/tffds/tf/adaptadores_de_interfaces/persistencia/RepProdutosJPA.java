@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia.Produto;
 import com.tffds.tf.dominio.interfaces_persistencia.InterfaceRepProdutos;
 import com.tffds.tf.dominio.modelos.ProdutoModel;
 

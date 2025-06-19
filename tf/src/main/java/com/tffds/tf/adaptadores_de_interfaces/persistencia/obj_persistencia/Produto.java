@@ -1,4 +1,4 @@
-package com.tffds.tf.adaptadores_de_interfaces.persistencia;
+package com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia;
 
 import com.tffds.tf.dominio.modelos.ProdutoModel;
 
