@@ -13,7 +13,7 @@ public class QuantidadeDisponivelProdutoUC {
     private final ServicoItemDeEstoque servicoItemEstoque;
 
     @Autowired
-    QuantidadeDisponivelProdutoUC(ServicoItemDeEstoque servicoItemEstoque) {
+    public QuantidadeDisponivelProdutoUC(ServicoItemDeEstoque servicoItemEstoque) {
         this.servicoItemEstoque = servicoItemEstoque;
     }
 

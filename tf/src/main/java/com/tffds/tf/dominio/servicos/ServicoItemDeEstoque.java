@@ -1,6 +1,7 @@
 package com.tffds.tf.dominio.servicos;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,23 +17,32 @@ public class ServicoItemDeEstoque{
     private InterfaceRepProdutos produtos;
     
     @Autowired
-    public ServicoItemDeEstoque(InterfaceRepProdutos produtos,InterfaceRepItemDeEstoque estoque){
+    public ServicoItemDeEstoque(InterfaceRepProdutos produtos,InterfaceRepItemDeEstoque estoque) {
         this.produtos = produtos;
         this.estoque = estoque;
     }
  
-    public List<ItemDeEstoqueModel> podutosDisponiveis(){
+    public List<ItemDeEstoqueModel> podutosDisponiveis() {
         return estoque.emEstoque();
     }
 
-    //public int qtdadeEmEstoque(long id){
-    //    ItemDeEstoqueModel item = estoque.findByProdutoId(id).orElse(null);
-    //    if(item != null){
-    //        return item.getQuantidade();
-    //    }
-    //    return 0;
-    //}
+    public List<ItemDeEstoqueModel> qtdadeEmEstoqueLista(List<ProdutoModel> prods) {
+        List<ItemDeEstoqueModel> lista = new ArrayList<>(prods.size()); // cria lista de ItemDeEstoqueModel pela quantidade de itens
+
+        for(ProdutoModel prod : prods) { // para cada produto na lista
+            ItemDeEstoqueModel item = estoque.pegaPorId(prod.getId()); // pega sua contraparte em ItemDeEstoqueModel
+            if(item != null) {lista.add(item);}
+        }
+
+        return lista;
+
+        //if(lista.getFirst() != null) {
+        //    return lista;
+        //}
 //
+        //return null;
+    }
+
     //public boolean baixaEstoque(long id,int qtdade){
     //    ItemDeEstoqueModel item = estoque.findById(id).orElse(null);
     //    if(item != null) {

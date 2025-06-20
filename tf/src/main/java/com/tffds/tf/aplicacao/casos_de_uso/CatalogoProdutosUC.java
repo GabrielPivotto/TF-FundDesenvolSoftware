@@ -13,7 +13,7 @@ public class CatalogoProdutosUC {
     private final ServicoProduto servicoProd;
 
     @Autowired
-    CatalogoProdutosUC(ServicoProduto servicoProd) {
+    public CatalogoProdutosUC(ServicoProduto servicoProd) {
         this.servicoProd = servicoProd;
     }
 

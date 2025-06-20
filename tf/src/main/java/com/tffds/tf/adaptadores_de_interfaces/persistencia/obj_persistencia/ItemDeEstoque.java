@@ -41,10 +41,10 @@ public class ItemDeEstoque {
     public int getEstoqueMax() {return estoqueMax;}
     public void setEstoqueMax(int estoqueMax) {this.estoqueMax = estoqueMax;}
 
-    public static ItemDeEstoque fromItemDeEstoqueModel (ItemDeEstoqueModel IEModel) {
+    public static ItemDeEstoque fromModel (ItemDeEstoqueModel IEModel) {
         return new ItemDeEstoque(IEModel.getId(), Produto.fromProdutoModel(IEModel.getProduto()), IEModel.getQuantidade(), IEModel.getEstoqueMin(), IEModel.getEstoqueMax());
     }
-     public static ItemDeEstoqueModel toItemDeEstoqueModel (ItemDeEstoque IE) {
+     public static ItemDeEstoqueModel toModel (ItemDeEstoque IE) {
         return new ItemDeEstoqueModel(IE.getId(), Produto.toProdutoModel(IE.getProduto()), IE.getQuantidade(), IE.getEstoqueMin(), IE.getEstoqueMax());
     }
 }
