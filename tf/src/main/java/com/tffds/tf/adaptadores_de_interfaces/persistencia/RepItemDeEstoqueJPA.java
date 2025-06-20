@@ -32,9 +32,18 @@ public class RepItemDeEstoqueJPA implements InterfaceRepItemDeEstoque {
     @Override
     public ItemDeEstoqueModel pegaPorId(Long id) {
         Optional<ItemDeEstoque> item = repItemEstoque.findByProdutoId(id);
+
         if(item.isEmpty()) {
             return null;
         } else {return ItemDeEstoque.toModel(item.get());}
     }
+
+    @Override
+    public void entradaEmEstoque(ItemDeEstoqueModel itemEstoque) {
+        ItemDeEstoque item = ItemDeEstoque.fromModel(itemEstoque);
+        repItemEstoque.save(item);
+    }
+
+    
     
 }
