@@ -8,23 +8,37 @@ public class OrcamentoModel {
     private long id;
     private List<ItemPedidoModel> itens;
     private double custoItens;
-    private String pais;
-    private String estado;
-
-    /*talvez imposto e desconto devem ser aplicados ao OrcamentoModel usando servicos ao inves
-       dele guardar eles pois isso pode causar problema de multiplos atores na classe?        */
-    //private double imposto;   
-    //private double desconto; 
+    private double impFederal;
+    private double impEstadual;
+    private double desconto;
     private LocalDate dataCriacao;
     private double custoConsumidor;
     private boolean efetivado;  // sempre checar se é efetivado pois se chegar de
                                 // um repositorio, deve ser declarado como final
 
-    public OrcamentoModel(long id, String pais, String estado) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> its, Imposto federal, Imposto estadual, Desconto desconto) {
         this.id = id;
-        this.itens = new LinkedList<>();
+        this.itens = its;
         this.efetivado = false;
+        this.federal = federal;
+        this.estadual = estadual;
         dataCriacao = LocalDate.now();
+        custoItems = 0;
+
+        impFederal = federal.calcula(itens);
+        impEstadual = estadual.calcula(itens);
+
+        this.desconto = desconto.calcula(itens);
+
+        for (ItemPedidoModel item : itens) {
+            custoItens += item.getPrecoBase();
+        }
+        custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
+
+
+        
+
+
     }
 
     // constructor que transfere de outros tipos para model
