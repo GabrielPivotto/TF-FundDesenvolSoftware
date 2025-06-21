@@ -32,11 +32,6 @@ public class OrcamentoModel {
             custoItens += item.getPreco();
         }
         custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
-
-
-        
-
-
     }
 
     // constructor que transfere de outros tipos para model

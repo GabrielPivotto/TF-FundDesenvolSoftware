@@ -8,5 +8,4 @@ public interface InterfaceRepOrcamento {
     List<OrcamentoModel> todos();
     OrcamentoModel cadastra(OrcamentoModel orcamento);
     OrcamentoModel recuperaPorId(long id);
-    void marcaComoEfetivado(long id);
 }
