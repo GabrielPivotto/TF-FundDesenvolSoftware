@@ -7,6 +7,8 @@ import java.util.List;
 public class OrcamentoModel {
     private long id;
     private List<ItemPedidoModel> itens;
+    private String pais;
+    private String estado;
     private double custoItens;
     private double impFederal;
     private double impEstadual;
@@ -16,12 +18,14 @@ public class OrcamentoModel {
     private boolean efetivado;  // sempre checar se é efetivado pois se chegar de
                                 // um repositorio, deve ser declarado como final
 
-    public OrcamentoModel(long id, List<ItemPedidoModel> its, Imposto federal, Imposto estadual, Desconto desconto) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> its, String pais, String estado, Imposto federal, Imposto estadual, Desconto desconto) {
         this.id = id;
         this.itens = its;
         this.efetivado = false;
         dataCriacao = LocalDate.now();
         custoItens = 0;
+        this.estado = estado;
+        this.pais = pais;
 
         impFederal = federal.calcula(itens);
         impEstadual = estadual.calcula(itens);
@@ -41,9 +45,11 @@ public class OrcamentoModel {
 
 
     // constructor que transfere de outros tipos para model
-    public OrcamentoModel(long id, List<ItemPedidoModel> itens, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> itens, String pais, String estado, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
         this.id = id;
         this.itens = itens;
+        this.estado = estado;
+        this.pais = pais;
         this.custoItens = custoItens;
         this.impFederal = impFederal;
         this.impEstadual = impEstadual;
@@ -61,6 +67,11 @@ public class OrcamentoModel {
     public long getId() {
         return this.id;
     }
+
+
+    public String getPais(){return pais;}
+    public String getEstado() {return estado;}
+
 
     public double getCustoItens() {
         return this.custoItens;
