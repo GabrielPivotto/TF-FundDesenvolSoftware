@@ -7,6 +7,8 @@ import java.util.List;
 public class OrcamentoModel {
     private long id;
     private List<ItemPedidoModel> itens;
+    private String pais;
+    private String estado;
     private double custoItens;
     private double impFederal;
     private double impEstadual;
@@ -16,12 +18,14 @@ public class OrcamentoModel {
     private boolean efetivado;  // sempre checar se é efetivado pois se chegar de
                                 // um repositorio, deve ser declarado como final
 
-    public OrcamentoModel(long id, List<ItemPedidoModel> its, Imposto federal, Imposto estadual, Desconto desconto) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> its, String pais, String estado, Imposto federal, Imposto estadual, Desconto desconto) {
         this.id = id;
         this.itens = its;
         this.efetivado = false;
         dataCriacao = LocalDate.now();
         custoItens = 0;
+        this.estado = estado;
+        this.pais = pais;
 
         impFederal = federal.calcula(itens);
         impEstadual = estadual.calcula(itens);
@@ -34,46 +38,83 @@ public class OrcamentoModel {
         custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
     }
 
+
     // constructor que transfere de outros tipos para model
-    public OrcamentoModel(long id, String pais, String estado, List<ItemPedidoModel> itens, boolean efetivado) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> itens, String pais, String estado, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
         this.id = id;
         this.itens = itens;
+        this.estado = estado;
+        this.pais = pais;
+        this.custoItens = custoItens;
+        this.impFederal = impFederal;
+        this.impEstadual = impEstadual;
+        this.desconto = desconto;
+        this.dataCriacao = dataCriacao;
+        this.custoConsumidor = custoConsumidor;
         this.efetivado = efetivado;
-        dataCriacao = LocalDate.now();
     }
 
-    public void addItensPedido(PedidoModel pedido){
-        for(ItemPedidoModel itemPedido:pedido.getItens()){
-            itens.add(itemPedido);
-}
-    }
+    
 
     public List<ItemPedidoModel> getItens(){return itens;}
 
-    public long getId() {return id;}
-    public void setId(long id){this.id = id;}
 
-    public double getCustoItens() {return custoItens;}
-    public void setCustoItens(double custoItens){this.custoItens = custoItens;}
+    public long getId() {
+        return this.id;
+    }
 
-    /*retirar setters de pais e estado se a estrategia de deixar as 
-      instancias de orcamento efetivados como final nao funcionar  */
-    //public double getImposto() {return imposto;}
 
-    //public void setImposto(double imposto) {this.imposto = imposto;}
+    public String getPais(){return pais;}
+    public String getEstado() {return estado;}
 
-    //public double getDesconto() {return desconto;}
 
-    //public void setDesconto(double desconto) {this.desconto = desconto;}
+    public double getCustoItens() {
+        return this.custoItens;
+    }
 
-    //public double getCustoConsumidor() {return custoConsumidor + imposto * desconto;}
+    public double getImpFederal() {
+        return this.impFederal;
+    }
 
-    //public void setCustoConsumidor(double custoConsumidor) {this.custoConsumidor = custoConsumidor;}
+    public void recalculaImpFederal(Imposto Federal) {
+        this.impFederal = Federal.calcula(itens);
+        custoConsumidor = custoItens + impEstadual + impFederal - desconto;
+    }
 
-    public boolean isEfetivado() {return efetivado;}
+    public double getImpEstadual() {
+        return this.impEstadual;
+    }
 
-    public void efetiva() {efetivado = true;}
+    public void recalculaImpEstadual(Imposto Estadual) {
+        this.impEstadual = Estadual.calcula(itens);
+        custoConsumidor = custoItens + impEstadual + impFederal - desconto;
+    }
 
-    public String getDataCriacao() {return dataCriacao.toString();}
+    public double getDesconto() {
+        return this.desconto;
+    }
+
+    public void recalculaDesconto(Desconto desconto) {
+        this.desconto = desconto.calcula(itens);
+        custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
+    }
+
+    public LocalDate getDataCriacao() {
+        return this.dataCriacao;
+    }
+
+    public double getCustoConsumidor() {
+        return this.custoConsumidor;
+    }
+
+
+    public boolean isEfetivado() {
+        return this.efetivado;
+    }
+
+    public void setEfetivado(boolean efetivado) {
+        this.efetivado = efetivado;
+    }
+    
 }
 
