@@ -3,14 +3,12 @@ package com.tffds.tf.dominio.modelos;
 public class ItemPedidoModel {
     private ProdutoModel produto;
     private int quantidade;
-    private double precoBase;
-    private double precoComImposto;
+    private double preco;
 
     public ItemPedidoModel(ProdutoModel produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
-        this.precoBase = produto.getPrecoUnitario() * quantidade;
-        precoComImposto = precoBase;
+        this.preco = produto.getPrecoUnitario() * quantidade;
     }
 
     public ProdutoModel getProduto() {
@@ -25,24 +23,12 @@ public class ItemPedidoModel {
         this.quantidade = quantidade;
     }
 
-    public double getPrecoBase(){
-        return precoBase;
-    }
-
-    public double getPrecoComImposto(){
-        return precoComImposto;
-    }
-
-    public void addImposto(double valor){
-        precoComImposto += valor;
+    public double getPreco(){
+        return preco;
     }
 
     public void setPreco(double valor){
-        precoBase = valor;
-    }
-
-    public void setPrecoComImposto(double Valor){
-        precoComImposto = valor;
+        preco = valor;
     }
 
 

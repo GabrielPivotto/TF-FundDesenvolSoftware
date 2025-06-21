@@ -20,10 +20,8 @@ public class OrcamentoModel {
         this.id = id;
         this.itens = its;
         this.efetivado = false;
-        this.federal = federal;
-        this.estadual = estadual;
         dataCriacao = LocalDate.now();
-        custoItems = 0;
+        custoItens = 0;
 
         impFederal = federal.calcula(itens);
         impEstadual = estadual.calcula(itens);
@@ -31,7 +29,7 @@ public class OrcamentoModel {
         this.desconto = desconto.calcula(itens);
 
         for (ItemPedidoModel item : itens) {
-            custoItens += item.getPrecoBase();
+            custoItens += item.getPreco();
         }
         custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
 
@@ -65,12 +63,6 @@ public class OrcamentoModel {
 
     /*retirar setters de pais e estado se a estrategia de deixar as 
       instancias de orcamento efetivados como final nao funcionar  */
-    public String getPais() {return pais;}
-    public void setPais(String pais) {this.pais = pais;}
-
-    public String getEstado() {return estado;}
-    public void setEstado(String estado) {this.estado = estado;}
-
     //public double getImposto() {return imposto;}
 
     //public void setImposto(double imposto) {this.imposto = imposto;}
