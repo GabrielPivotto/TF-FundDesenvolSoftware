@@ -5,23 +5,49 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PedidoModel {
-    private long id;
     private List<ItemPedidoModel> itens;
+    private String pais;
+    private String estado;
 
-    public PedidoModel(long id) {
+
+    public PedidoModel(long id, List<ItemPedidoModel> itens, String pais, String estado) {
         this.id = id;
-        this.itens = new LinkedList<>();
+        this.itens = itens;
+        this.pais = pais;
+        this.estado = estado;
+    }
+
+
+    public List<ItemPedidoModel> getItens() {
+        return this.itens;
+    }
+
+    public void setItens(List<ItemPedidoModel> itens) {
+        this.itens = itens;
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
-    public List<ItemPedidoModel> getItens() {
-        return new ArrayList<ItemPedidoModel>(itens);
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void addItem(ItemPedidoModel item){
-        itens.add(item);
+    public String getPais() {
+        return this.pais;
     }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+   
 }
