@@ -9,11 +9,12 @@ import com.tffds.tf.aplicacao.ServicoRelatorio;
 public class RelatorioUC {
     private final ServicoRelatorio servicoRelatorio;
 
-    @Autowired    public RelatorioUC(ServicoRelatorio servicoRelatorio) {
+    @Autowired
+    public RelatorioUC(ServicoRelatorio servicoRelatorio) {
         this.servicoRelatorio = servicoRelatorio;
     }
 
-    public String run() {
-        return servicoRelatorio.gerarRelatorioTexto();
+    public String run(String formato) {
+        return servicoRelatorio.gerarRelatorio(formato);
     }
 }

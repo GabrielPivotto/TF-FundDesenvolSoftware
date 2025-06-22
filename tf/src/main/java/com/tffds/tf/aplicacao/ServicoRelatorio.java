@@ -18,51 +18,31 @@ import com.tffds.tf.dominio.modelos.OrcamentoModel;
 @Service
 public class ServicoRelatorio {
     private InterfaceRepOrcamento repOrc;
+    private InterfaceRelatorio relatorio;
 
     @Autowired
     public ServicoRelatorio(InterfaceRepOrcamento repOrc) {
         this.repOrc = repOrc;
+        
     }
 
-    public String gerarRelatorioTexto() {
-        List<OrcamentoModel> orc = repOrc.todos();
-        List<OrcamentoDTO> vendas = new LinkedList<>();
-
-        // pega os OrcamentoModel efetivado e transforma em OrcamentoDTO
-        for(OrcamentoModel oM : orc) {
-            if (oM.isEfetivado()) {vendas.add(OrcamentoDTO.fromModel(oM));} 
-        }
-
-        Map<ProdutoDTO, Integer> valorVendas = new HashMap<ProdutoDTO, Integer>();
-
-        // coloca os ProdutoDTO dentro do HashMap (ou incrementando no valor)
-        for(OrcamentoDTO orcEfetivado : vendas) {
-            List<ItemPedidoDTO> itens = orcEfetivado.getItens();
-
-            // loop para checar cada ProdutoDTO dentro de ItemPedidoDTO
-            for(ItemPedidoDTO pedido : itens) {
-                if(valorVendas.containsKey(pedido.getProduto())) {
-                    valorVendas.put(pedido.getProduto(), valorVendas.get(pedido.getProduto()) + pedido.getQtdade());
-                }
-                else {valorVendas.put(pedido.getProduto(), pedido.getQtdade());}
+    public String gerarRelatorio(String tipo) {
+        switch(tipo) {
+            case "html": {
+                relatorio = new RelatorioHTML();
+                break;
             }
-        }
-        
-        //gerando texto para o relatorio
-        StringBuilder relatorioTexto = new StringBuilder();
-        relatorioTexto.append("Relatorio de Vendas:\n");
-        
-        for (ProdutoDTO chave : valorVendas.keySet()) {
-            int qtd = valorVendas.get(chave); 
+            case "txt": {
+                relatorio = new RelatorioTexto();
+                break;
+            }
+            case "xml": {
+                relatorio = new RelatorioXML();
+                break;
+            }
 
-            relatorioTexto.append(String.format("Nome do Produto: %s \n ID: %d \n Quantidade total vendida: %d \n Lucro (calculo unitario): %.2f\n\n", 
-                chave.getDescricao(), 
-                chave.getId(), 
-                qtd, 
-                chave.getPrecoUnitario()*qtd));
+            return relatorio.gerarRelatorio();
         }
-        
-        return relatorioTexto.toString();
     }
 
     //public String gerarRelatorioHtml(LocalDateTime startDate, LocalDateTime endDate) {
