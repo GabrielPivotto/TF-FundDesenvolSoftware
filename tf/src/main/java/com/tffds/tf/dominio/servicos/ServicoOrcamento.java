@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tffds.tf.dominio.interfaces_persistencia.InterfaceRepItemDeEstoque;
 import com.tffds.tf.dominio.interfaces_persistencia.InterfaceRepOrcamento;
 import com.tffds.tf.dominio.modelos.ProdutoModel;
+import com.tffds.tf.dominio.modelos.PedidoModel;
 import com.tffds.tf.dominio.modelos.ItemPedidoModel;
 import com.tffds.tf.dominio.modelos.ItemDeEstoqueModel;
 import com.tffds.tf.dominio.modelos.DescontoPadrao;
@@ -43,12 +44,12 @@ public class ServicoOrcamento{
     }
     //==============================================
 
-    public OrcamentoModel buildOrcamento(PedidoModel pedido, String pais, String estado){
+    public OrcamentoModel buildOrcamento(PedidoModel pedido){
 
         Imposto fed = null;
         Imposto est = null;
 
-        switch (pais) {
+        switch (pedido.getPais()) {
             case "BR":
                 fed = new ImpostoBrasil();
                 break;
@@ -58,7 +59,7 @@ public class ServicoOrcamento{
         }
 
 
-        switch (estado) {
+        switch (pedido.getEstado()) {
             case "RS":
                 est = new ImpostoRS();
                 break;
@@ -75,7 +76,7 @@ public class ServicoOrcamento{
                 return null;
         }
 
-        OrcamentoModel orca = new OrcamentoModel(pedido.getId(), pedido.getItens(), pais, estado, fed, est, new DescontoPadrao());
+        OrcamentoModel orca = new OrcamentoModel(pedido.getId(), pedido.getItens(), pedido.getPais(), pedido.getEstado(), fed, est, new DescontoPadrao());
         orcamento.cadastra(orca);
         return orca;
     }

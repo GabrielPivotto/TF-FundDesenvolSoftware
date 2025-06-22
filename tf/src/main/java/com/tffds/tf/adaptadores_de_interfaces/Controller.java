@@ -18,6 +18,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.EntradaEmEstoqueUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEfetuaUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosCadastroUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosEfetivadosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
@@ -25,6 +26,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.RelatorioUC;
 import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
 import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
 import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
+import com.tffds.tf.aplicacao.dtos.PedidoDTO;
 import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
 import com.tffds.tf.dominio.modelos.OrcamentoModel;
 import com.tffds.tf.dominio.servicos.ServicoOrcamento;
@@ -44,6 +46,8 @@ public class Controller {
     private ServicoOrcamento orc;
     private OrcamentosEfetivadosUC efetivados;
     private RelatorioUC relatorio;
+    private OrcamentosCadastroUC cadastro;
+    private OrcamentoPaisEstadoUC OrcPaisEstado;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -54,7 +58,9 @@ public class Controller {
                       OrcamentoEfetuaUC OrcamentoEfetiva,
                       OrcamentoEntreDatasUC OrcEntreDatas,
                       OrcamentosEfetivadosUC efetivados,
-                      RelatorioUC relatorio) {
+                      RelatorioUC relatorio,
+                      OrcamentosCadastroUC cadastro,
+                      OrcamentoPaisEstadoUC OrcPaisEstado) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
@@ -65,6 +71,8 @@ public class Controller {
         this.OrcEntreDatas = OrcEntreDatas;
         this.efetivados = efetivados;
         this.relatorio = relatorio;
+        this.cadastro = cadastro;
+        this.OrcPaisEstado = OrcPaisEstado;
     }
 
     @GetMapping("")
@@ -118,8 +126,9 @@ public class Controller {
 
     @PostMapping("cadastraOrcamento")
     @CrossOrigin(origins = "*")
-    public void cadastrar(@RequestBody OrcamentoDTO o){
-        orc.cadastraOrc(OrcamentoDTO.toModel(o));
+    public OrcamentoDTO cadastrar(@RequestBody PedidoDTO ped){
+        //orc.cadastraOrc(OrcamentoDTO.toModel(o));
+        cadastro.run(ped);
     }
 
     @GetMapping("efetivaOrcamento/id/{idOrcamento}")
@@ -133,6 +142,14 @@ public class Controller {
     public List<OrcamentoDTO> orcamentosEntre(@PathVariable String from,
                                     @PathVariable String to) {
         return OrcEntreDatas.run(from, to);
+    } 
+
+
+    @GetMapping("orcamentosDe/pais/{pais}/estado/{estado}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> orcamentosDe(@PathVariable String pais,
+                                    @PathVariable String estado) {
+        return OrcPaisEstado.run(pais, estado);
     } 
 
     @GetMapping("orcamentosEfetivados/{Efetiva}")
