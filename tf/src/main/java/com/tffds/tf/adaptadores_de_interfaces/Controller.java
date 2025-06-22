@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.EntradaEmEstoqueUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEfetuaUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
 import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
@@ -29,17 +31,23 @@ public class Controller {
     private QuantidadeDisponivelProdutoUC qtdProd;
     private QuantidadeProdutosEspecificoUC qtdProdEsp;
     private EntradaEmEstoqueUC entradaEmEstoque;
+    private OrcamentoEfetuaUC OrcamentoEfetua;
+    private OrcamentoEntreDatasUC OrcEntreDatas;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
                       QuantidadeDisponivelProdutoUC qtdProd,
                       QuantidadeProdutosEspecificoUC qtdProdEsp,
-                      EntradaEmEstoqueUC entradaEmEstoque) {
+                      EntradaEmEstoqueUC entradaEmEstoque,
+                      OrcamentoEfetuaUC OrcamentoEfetua,
+                      OrcamentoEntreDatasUC OrcEntreDatas) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
         this.qtdProdEsp = qtdProdEsp;
         this.entradaEmEstoque = entradaEmEstoque;
+        this.OrcamentoEfetua = OrcamentoEfetua;
+        this.OrcEntreDatas = OrcEntreDatas;
     }
 
     @GetMapping("")
@@ -73,9 +81,16 @@ public class Controller {
         return entradaEmEstoque.run(idProduto, qtd);
     }
 
-    @GetMapping("efetuaOrcamento/id/{idProduto}")
+    @GetMapping("efetuaOrcamento/id/{idOrcamento}")
     @CrossOrigin(origins = "*")
-    public boolean efetuaORcamento(@PathVariable long irOrcamento) {
-        return orcamentoEfetua.run(idOrcamento);
+    public boolean efetuaOrcamento(@PathVariable long idOrcamento) {
+        return OrcamentoEfetua.run(idOrcamento);
+    }
+
+    @GetMapping("OrcamentosEntre/from/{from}/to/{to}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> efetuaOrcamento(@PathVariable String from,
+                                    @PathVariable String to) {
+        return OrcEntreDatas.run(from, to);
     }
 }
