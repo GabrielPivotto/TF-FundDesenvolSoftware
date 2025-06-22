@@ -17,7 +17,6 @@ public class OrcamentoEfetuaUC {
 
     public boolean run(long id) {
 
-        return true;
-        //return servicoOrcamento.efetuaOrcamento(id);
+        return servicoOrcamento.efetuaOrcamento(id);
     }
 }
