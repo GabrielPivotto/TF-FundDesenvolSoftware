@@ -9,3 +9,9 @@ INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_ma
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max ) VALUES (200,20,10,5,30);
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max ) VALUES (300,40,8,5,50);
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max ) VALUES (400,60,15,5,50);
+
+INSERT INTO Orcamento (id, pais, estado, custo_itens, imp_federal, imp_estadual,
+                      desconto, data_criacao, custo_consumidor, efetivado) VALUES (1, 'BR', 'SP', 200.00, 20.00, 10.00,
+                                                                                   15.00, CURRENT_DATE, 215.00, FALSE);
+
+INSERT INTO ItemPedido (id, produto_id, quantidade, preco, orcamento_id) VALUES (10, 5, 2, 100.00, 1), (11, 6, 1, 100.00, 1);

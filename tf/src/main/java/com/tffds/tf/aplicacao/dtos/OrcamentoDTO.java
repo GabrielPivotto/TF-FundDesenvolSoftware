@@ -38,8 +38,6 @@ public class OrcamentoDTO {
         this.efetivado = efetivado;
     }
 
-    
-
     public List<ItemPedidoDTO> getItens(){return itens;}
 
 
