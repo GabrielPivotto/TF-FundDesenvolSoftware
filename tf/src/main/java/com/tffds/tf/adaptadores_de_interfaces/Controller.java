@@ -1,6 +1,7 @@
 package com.tffds.tf.adaptadores_de_interfaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosEfetivadosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
+import com.tffds.tf.aplicacao.casos_de_uso.RelatorioUC;
 import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
 import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
 import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
@@ -40,6 +42,7 @@ public class Controller {
     private OrcamentoEntreDatasUC OrcEntreDatas;
     private ServicoOrcamento orc;
     private OrcamentosEfetivadosUC efetivados;
+    private RelatorioUC relatorio;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -49,7 +52,8 @@ public class Controller {
                       ServicoOrcamento orc,
                       OrcamentoEfetuaUC OrcamentoEfetiva,
                       OrcamentoEntreDatasUC OrcEntreDatas,
-                      OrcamentosEfetivadosUC efetivados) {
+                      OrcamentosEfetivadosUC efetivados,
+                      RelatorioUC relatorio) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
@@ -59,6 +63,7 @@ public class Controller {
         this.OrcamentoEfetiva = OrcamentoEfetiva;
         this.OrcEntreDatas = OrcEntreDatas;
         this.efetivados = efetivados;
+        this.relatorio = relatorio;
     }
 
     @GetMapping("")
@@ -127,11 +132,19 @@ public class Controller {
     public List<OrcamentoDTO> orcamentosEntre(@PathVariable String from,
                                     @PathVariable String to) {
         return OrcEntreDatas.run(from, to);
-    }
+    } 
 
     @GetMapping("orcamentosEfetivados/{Efetiva}")
     @CrossOrigin(origins = "*")
     public List<OrcamentoDTO> orcamentosEfetivados(@PathVariable boolean efetiva) {
         return efetivados.run(efetiva);
+    }
+
+    @GetMapping("relatorioDeVendas")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> geraRelatorio() {
+        return ResponseEntity.ok()
+                             .header("Content-Type", "text/plain")
+                             .body(relatorio.run());
     }
 }

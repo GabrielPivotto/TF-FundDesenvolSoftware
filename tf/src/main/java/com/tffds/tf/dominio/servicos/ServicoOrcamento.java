@@ -31,7 +31,7 @@ public class ServicoOrcamento{
         this.itemEstoque = itemEstoque;
     }
 
-    //REMOVER DEPOIS=(ou nao)========================|
+    //REMOVER DEPOIS=(ou nao)========================
     public List<OrcamentoModel> todos() {               
         return orcamento.todos();
     }
@@ -89,7 +89,6 @@ public class ServicoOrcamento{
         OrcamentoModel orca = orcamento.recuperaPorId(id);
         if (orca == null) return false;
         if (orca.isEfetivado()) return false;
-
 
         for (ItemPedidoModel item : orca.getItens()) {
             ItemDeEstoqueModel aux = itemEstoque.pegaPorId(item.getProduto().getId());
