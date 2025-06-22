@@ -36,49 +36,31 @@ public class ServicoRelatorio {
                 relatorio = new RelatorioTexto();
                 break;
             }
-            case "xml": {
-                relatorio = new RelatorioXML();
-                break;
+        }
+        
+        List<OrcamentoModel> orc = repOrc.todos();
+            List<OrcamentoDTO> vendas = new LinkedList<>();
+
+            // pega os OrcamentoModel efetivado e transforma em OrcamentoDTO
+            for(OrcamentoModel oM : orc) {
+                if (oM.isEfetivado()) {vendas.add(OrcamentoDTO.fromModel(oM));} 
             }
 
-            return relatorio.gerarRelatorio();
-        }
-    }
+            Map<ProdutoDTO, Integer> valorVendas = new HashMap<ProdutoDTO, Integer>();
 
-    //public String gerarRelatorioHtml(LocalDateTime startDate, LocalDateTime endDate) {
-    //    List<Venda> vendas = vendaRepository.findVendasBetweenDates(startDate, endDate);
-    //    
-    //    StringBuilder relatorioHtml = new StringBuilder();
-    //    relatorioHtml.append("<html><body>");
-    //    relatorioHtml.append("<h1>Relatório de Vendas</h1>");
-    //    relatorioHtml.append("<table border='1'><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Valor</th></tr>");
-    //    
-    //    for (Venda venda : vendas) {
-    //        relatorioHtml.append(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>", 
-    //            venda.getId(), 
-    //            venda.getData(), 
-    //            venda.getCliente(), 
-    //            venda.getValor()));
-    //    }
-    //    
-    //    relatorioHtml.append("</table></body></html>");
-    //    
-    //    return relatorioHtml.toString();
-    //}
-//
-    //public String gerarRelatorioXml(LocalDate startDate, LocalDate endDate) throws JAXBException {
-    //    List<Venda> vendas = vendaRepository.findVendasBetweenDates(startDate, endDate);
-//
-    //    // Criando um objeto que contém as vendas para ser transformado em XML
-    //    VendasWrapper wrapper = new VendasWrapper(vendas);
-    //    
-    //    // Convertendo para XML usando JAXB
-    //    StringWriter writer = new StringWriter();
-    //    JAXBContext context = JAXBContext.newInstance(VendasWrapper.class);
-    //    Marshaller marshaller = context.createMarshaller();
-    //    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    //    marshaller.marshal(wrapper, writer);
-    //    
-    //    return writer.toString();
-    //}
+            // coloca os ProdutoDTO dentro do HashMap (ou incrementando no valor)
+            for(OrcamentoDTO orcEfetivado : vendas) {
+                List<ItemPedidoDTO> itens = orcEfetivado.getItens();
+
+                // loop para checar cada ProdutoDTO dentro de ItemPedidoDTO
+                for(ItemPedidoDTO pedido : itens) {
+                    if(valorVendas.containsKey(pedido.getProduto())) {
+                        valorVendas.put(pedido.getProduto(), valorVendas.get(pedido.getProduto()) + pedido.getQtdade());
+                    }
+                    else {valorVendas.put(pedido.getProduto(), pedido.getQtdade());}
+                }
+            }
+
+            return relatorio.gerarRelatorio(valorVendas);
+    }
 }

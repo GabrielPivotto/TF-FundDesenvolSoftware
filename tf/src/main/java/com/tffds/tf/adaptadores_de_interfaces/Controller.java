@@ -163,21 +163,19 @@ public class Controller {
     public ResponseEntity<String> geraRelatorio(@RequestParam String formato) {
         
         switch (formato.toLowerCase()) {
-        case "html":
-            String relatorioHtml = "<html><body><h1>" + relatorio.run(formato) + "</h1></body></html>";
-            return ResponseEntity.ok()
-                                 .header("Content-Type", "text/html")
-                                 .body(relatorioHtml);
-        case "xml":
-            String relatorioXml = "<relatorio><titulo>" + relatorio.run(formato) + "</titulo></relatorio>";
-            return ResponseEntity.ok()
-                                 .header("Content-Type", "application/xml")
-                                 .body(relatorioXml);
-        case "text":
-        default:
-            return ResponseEntity.ok()
-                                 .header("Content-Type", "text/plain")
-                                 .body(relatorio.run(formato));
-    }
+            case "html": {
+                String relatorioHtml = "<html><body><h1>" + relatorio.run(formato) + "</h1></body></html>";
+                return ResponseEntity.ok()
+                                    .header("Content-Type", "text/html")
+                                    .body(relatorioHtml);
+            }
+            case "text": {
+            default:
+                return ResponseEntity.ok()
+                                    .header("Content-Type", "text/plain")
+                                    .body(relatorio.run(formato));
+        
+            }                    
+        }
     }
 }
