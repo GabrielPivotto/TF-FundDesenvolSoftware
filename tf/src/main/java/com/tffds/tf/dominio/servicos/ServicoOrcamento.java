@@ -88,6 +88,7 @@ public class ServicoOrcamento{
     public boolean efetuaOrcamento(long id){
         OrcamentoModel orca = orcamento.recuperaPorId(id);
         if (orca == null) return false;
+        if (orca.isEfetivado()) return false;
 
 
         for (ItemPedidoModel item : orca.getItens()) {

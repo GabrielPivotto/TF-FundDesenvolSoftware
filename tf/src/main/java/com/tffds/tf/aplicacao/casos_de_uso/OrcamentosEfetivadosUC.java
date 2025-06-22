@@ -11,21 +11,21 @@ import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
 import com.tffds.tf.dominio.servicos.ServicoOrcamento;
 
 @Component
-public class OrcamentosEfetuadosUC {
+public class OrcamentosEfetivadosUC {
     private final ServicoOrcamento servicoOrcamento;
 
     @Autowired
-    public OrcamentosEfetuadosUC(ServicoOrcamento servicoOrcamento) {
+    public OrcamentosEfetivadosUC(ServicoOrcamento servicoOrcamento) {
         this.servicoOrcamento = servicoOrcamento;
     }
 
-    public List<OrcamentoDTO> run(boolean efetuado) {
+    public List<OrcamentoDTO> run(boolean efetivado) {
 
         return servicoOrcamento.orcamentos()
-        .stream()
-        .filter(o -> o.isEfetivado() == efetivado)
-        .map(o -> OrcamentoDTO.fromModel(o))
-        .toList();
-       
+            .stream()
+            .filter(o -> o.isEfetivado()==efetivado)
+            .map(o -> OrcamentoDTO.fromModel(o))
+            .toList();
+        
     }
 }
