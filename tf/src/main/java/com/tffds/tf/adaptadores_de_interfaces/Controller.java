@@ -33,6 +33,7 @@ public class Controller {
     private EntradaEmEstoqueUC entradaEmEstoque;
     private OrcamentoEfetuaUC OrcamentoEfetua;
     private OrcamentoEntreDatasUC OrcEntreDatas;
+    
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -90,7 +91,7 @@ public class Controller {
     @GetMapping("OrcamentosEntre/from/{from}/to/{to}")
     @CrossOrigin(origins = "*")
     public List<OrcamentoDTO> efetuaOrcamento(@PathVariable String from,
-                                    @PathVariable String to) {
+                                            @PathVariable String to) {
         return OrcEntreDatas.run(from, to);
     }
 }
