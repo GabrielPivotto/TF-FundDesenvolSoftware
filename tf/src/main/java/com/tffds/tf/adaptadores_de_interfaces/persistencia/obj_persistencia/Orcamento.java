@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.tffds.tf.dominio.modelos.ItemDeEstoqueModel;
+import com.tffds.tf.dominio.modelos.ItemPedidoModel;
 import com.tffds.tf.dominio.modelos.OrcamentoModel;
 
 import jakarta.persistence.CascadeType;
@@ -71,7 +72,12 @@ public class Orcamento {
     public void setEfetivado(boolean efetivado) {this.efetivado = efetivado;}
 
     public static Orcamento fromModel (OrcamentoModel orcModel) {
-        return new Orcamento(orcModel.getId(), orcModel.getItens());
+        List<ItemPedidoModel> lista = orcModel.getItens();
+        List<ItemPedido> lista2 = ArrayList(lista.size())<>;
+        for(ItemPedidoModel ipModel : lista) {
+            ItemPedido ip = 
+        }
+        return new Orcamento(orcModel.getId(), ,);
     }
      public static OrcamentoModel toModel (Orcamento orc) {
         return new OrcamentoModel(IE.getId(), Produto.toProdutoModel(IE.getProduto()), IE.getQuantidade(), IE.getEstoqueMin(), IE.getEstoqueMax());

@@ -59,7 +59,6 @@ public class OrcamentoModel {
         return this.id;
     }
 
-
     public String getPais(){return pais;}
     public String getEstado() {return estado;}
 
