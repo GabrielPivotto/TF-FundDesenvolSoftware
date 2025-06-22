@@ -1,16 +1,12 @@
 package com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia;
 
-import com.tffds.tf.dominio.modelos.ItemDeEstoqueModel;
 import com.tffds.tf.dominio.modelos.ItemPedidoModel;
-import com.tffds.tf.dominio.modelos.OrcamentoModel;
+import com.tffds.tf.dominio.modelos.ProdutoModel;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 public class ItemPedido {
@@ -18,11 +14,7 @@ public class ItemPedido {
     @Id
     private Long id;
 
-    @JoinColumn(name = "orcamento_id")
-    private Orcamento orcamento;
-
     private Long idProduto;
-
     private int quantidade;
     private double preco;
 
@@ -34,7 +26,6 @@ public class ItemPedido {
         this.preco = preco;
     }
 
-    // Getters e Setters
     public long getId() {return id;}
 
     public long getIdProduto() {return idProduto;}
@@ -49,7 +40,7 @@ public class ItemPedido {
     public static ItemPedido fromModel (ItemPedidoModel ipModel) {
         return new ItemPedido(ipModel.getProduto().getId(), ipModel.getQuantidade(), ipModel.getPreco());
     }
-     public static ItemPedidoModel toModel (ItemPedido ie) {
-        return new ItemPedidoModel();
+     public static ItemPedidoModel toModel (ItemPedido ie, ProdutoModel prod) {
+        return new ItemPedidoModel(prod ,ie.getQuantidade());
     }
 }

@@ -38,9 +38,9 @@ public class OrcamentoModel {
     }
 
     // constructor que transfere de outros tipos para model
-    public OrcamentoModel(long id, List<ItemPedidoModel> itens, String pais, String estado, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
+    public OrcamentoModel(long id, List<ItemPedidoModel> lista, String pais, String estado, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
         this.id = id;
-        this.itens = itens;
+        this.itens = lista;
         this.estado = estado;
         this.pais = pais;
         this.custoItens = custoItens;

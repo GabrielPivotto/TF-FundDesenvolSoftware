@@ -21,12 +21,13 @@ public class OrcamentoEntreDatasUC {
 
     public List<OrcamentoDTO> run(String from, String to) {
 
-        return servicoOrcamento.orcamentos()
-        .stream()
-        .filter(o -> o.getDataCriacao().isAfter(LocalDate.parse(from)))
-        .filter(o -> o.getDataCriacao().isBefore(LocalDate.parse(to)))
-        .map(o -> OrcamentoDTO.fromModel(o))
-        .toList();
+        return null;
+        //return servicoOrcamento.orcamentos()
+        //.stream()
+        //.filter(o -> o.getDataCriacao().isAfter(LocalDate.parse(from)))
+        //.filter(o -> o.getDataCriacao().isBefore(LocalDate.parse(to)))
+        //.map(o -> OrcamentoDTO.fromModel(o))
+        //.toList();
        
     }
 }

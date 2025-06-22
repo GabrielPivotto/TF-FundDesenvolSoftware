@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia.Orcamento;
 import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.EntradaEmEstoqueUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEfetuaUC;
@@ -21,7 +22,10 @@ import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
 import com.tffds.tf.aplicacao.dtos.ItemPedidoDTO;
 import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
 import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
+import com.tffds.tf.dominio.modelos.OrcamentoModel;
+import com.tffds.tf.dominio.servicos.ServicoOrcamento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,21 +37,24 @@ public class Controller {
     private EntradaEmEstoqueUC entradaEmEstoque;
     private OrcamentoEfetuaUC OrcamentoEfetua;
     private OrcamentoEntreDatasUC OrcEntreDatas;
+    private ServicoOrcamento orc;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
                       QuantidadeDisponivelProdutoUC qtdProd,
                       QuantidadeProdutosEspecificoUC qtdProdEsp,
                       EntradaEmEstoqueUC entradaEmEstoque,
-                      OrcamentoEfetuaUC OrcamentoEfetua,
-                      OrcamentoEntreDatasUC OrcEntreDatas) {
+                      ServicoOrcamento orc) {
+                      //OrcamentoEfetuaUC OrcamentoEfetua,
+                      //OrcamentoEntreDatasUC OrcEntreDatas) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
         this.qtdProdEsp = qtdProdEsp;
         this.entradaEmEstoque = entradaEmEstoque;
-        this.OrcamentoEfetua = OrcamentoEfetua;
-        this.OrcEntreDatas = OrcEntreDatas;
+        this.orc = orc;
+        //this.OrcamentoEfetua = OrcamentoEfetua;
+        //this.OrcEntreDatas = OrcEntreDatas;
     }
 
     @GetMapping("")
@@ -81,16 +88,29 @@ public class Controller {
         return entradaEmEstoque.run(idProduto, qtd);
     }
 
-    @GetMapping("efetuaOrcamento/id/{idOrcamento}")
+    @GetMapping("todos")
     @CrossOrigin(origins = "*")
-    public boolean efetuaOrcamento(@PathVariable long idOrcamento) {
-        return OrcamentoEfetua.run(idOrcamento);
+    public List<OrcamentoDTO> todos() {
+        List<OrcamentoModel> list = orc.todos();
+        List<OrcamentoDTO> list2 = new ArrayList<>(list.size());
+        for(OrcamentoModel orcM : list) {
+            list2.add(OrcamentoDTO.fromModel(orcM));
+        }
+        
+        return list2;
     }
 
-    @GetMapping("OrcamentosEntre/from/{from}/to/{to}")
-    @CrossOrigin(origins = "*")
-    public List<OrcamentoDTO> efetuaOrcamento(@PathVariable String from,
-                                    @PathVariable String to) {
-        return OrcEntreDatas.run(from, to);
-    }
+
+    //@GetMapping("efetuaOrcamento/id/{idOrcamento}")
+    //@CrossOrigin(origins = "*")
+    //public boolean efetuaOrcamento(@PathVariable long idOrcamento) {
+    //    return OrcamentoEfetua.run(idOrcamento);
+    //}
+//
+    //@GetMapping("OrcamentosEntre/from/{from}/to/{to}")
+    //@CrossOrigin(origins = "*")
+    //public List<OrcamentoDTO> efetuaOrcamento(@PathVariable String from,
+    //                                @PathVariable String to) {
+    //    return OrcEntreDatas.run(from, to);
+    //}
 }

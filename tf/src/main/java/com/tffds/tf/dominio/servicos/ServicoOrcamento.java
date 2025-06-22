@@ -31,61 +31,65 @@ public class ServicoOrcamento{
         this.itemEstoque = itemEstoque;
     }
 
-    public OrcamentoModel buildOrcamento(PedidoModel pedido, String pais, String estado){
-
-        Imposto fed = null;
-        Imposto est = null;
-
-        switch (pais.toLowerCase()) {
-            case "brasil":
-                fed = new ImpostoBrasil();
-                break;
-        
-            default:
-                return null;
-        }
-
-
-        switch (estado.toLowerCase()) {
-            case "rio grande do sul":
-                est = new ImpostoRS();
-                break;
-
-            case "são paulo":
-                est = new ImpostoSP();
-                break;
-
-            case "pernambuco":
-                est = new ImpostoPernambuco();
-                break;
-
-            default:
-                return null;
-        }
-
-        OrcamentoModel orca = new OrcamentoModel(pedido.getId(), pedido.getItens(), pais, estado, fed, est, new DescontoPadrao());
-        orcamento.cadastra(orca);
-        return orca;
-    }
-
-    public List<OrcamentoModel>  orcamentos(){
+    public List<OrcamentoModel> todos() {
         return orcamento.todos();
     }
 
+    //public OrcamentoModel buildOrcamento(PedidoModel pedido, String pais, String estado){
+//
+    //    Imposto fed = null;
+    //    Imposto est = null;
+//
+    //    switch (pais.toLowerCase()) {
+    //        case "brasil":
+    //            fed = new ImpostoBrasil();
+    //            break;
+    //    
+    //        default:
+    //            return null;
+    //    }
+//
+//
+    //    switch (estado.toLowerCase()) {
+    //        case "rio grande do sul":
+    //            est = new ImpostoRS();
+    //            break;
+//
+    //        case "são paulo":
+    //            est = new ImpostoSP();
+    //            break;
+//
+    //        case "pernambuco":
+    //            est = new ImpostoPernambuco();
+    //            break;
+//
+    //        default:
+    //            return null;
+    //    }
+//
+    //    OrcamentoModel orca = new OrcamentoModel(pedido.getId(), pedido.getItens(), pais, estado, fed, est, new DescontoPadrao());
+    //    orcamento.cadastra(orca);
+    //    return orca;
+    //}
+//
+    //public List<OrcamentoModel>  orcamentos(){
+    //    return orcamento.todos();
+    //}
 
-    public boolean efetuaOrcamento(long id){
-        OrcamentoModel orca = orcamento.recuperaPorId(id);
-        if (orca == null) return false;
 
-
-        for (ItemPedidoModel item : orca.getItens()) {
-            ItemDeEstoqueModel aux = itemEstoque.pegaPorId(item.getProduto().getId());
-            if (aux == null) return false;
-            if (aux.getQuantidade() < item.getQuantidade()) {return false;}
-        }
-
-        orcamento.marcaComoEfetivado(id);
-
-        return true;
-    }
+    //public boolean efetuaOrcamento(long id){
+    //    OrcamentoModel orca = orcamento.recuperaPorId(id);
+    //    if (orca == null) return false;
+//
+//
+    //    for (ItemPedidoModel item : orca.getItens()) {
+    //        ItemDeEstoqueModel aux = itemEstoque.pegaPorId(item.getProduto().getId());
+    //        if (aux == null) return false;
+    //        if (aux.getQuantidade() < item.getQuantidade()) {return false;}
+    //    }
+//
+    //    orcamento.marcaComoEfetivado(id);
+//
+    //    return true;
+    //}
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 public class ItemDeEstoque {
     @Id
     private long id;
+    
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Produto produto;
     private int quantidade;

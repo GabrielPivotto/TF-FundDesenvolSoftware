@@ -2,14 +2,15 @@ package com.tffds.tf.adaptadores_de_interfaces.persistencia.obj_persistencia;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
-import com.tffds.tf.dominio.modelos.ItemDeEstoqueModel;
 import com.tffds.tf.dominio.modelos.ItemPedidoModel;
 import com.tffds.tf.dominio.modelos.OrcamentoModel;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -18,7 +19,8 @@ public class Orcamento {
     @Id
     private long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "orcamento_id")
     private List<ItemPedido> itens;
 
     private String pais;
@@ -72,14 +74,16 @@ public class Orcamento {
     public void setEfetivado(boolean efetivado) {this.efetivado = efetivado;}
 
     public static Orcamento fromModel (OrcamentoModel orcModel) {
-        List<ItemPedidoModel> lista = orcModel.getItens();
-        List<ItemPedido> lista2 = ArrayList(lista.size())<>;
-        for(ItemPedidoModel ipModel : lista) {
-            ItemPedido ip = 
+        List<ItemPedidoModel> listItemPedM = orcModel.getItens();
+        List<ItemPedido> listItemPed = new ArrayList<>(listItemPedM.size());
+        for(ItemPedidoModel itemPedM : listItemPedM) {
+            listItemPed.add(ItemPedido.fromModel(itemPedM));
         }
-        return new Orcamento(orcModel.getId(), ,);
+        
+        return new Orcamento(orcModel.getId(), listItemPed, orcModel.getPais(), orcModel.getEstado(), orcModel.getCustoItens(), orcModel.getImpFederal(), orcModel.getImpEstadual(), orcModel.getDesconto(), orcModel.getDataCriacao(), orcModel.getCustoConsumidor(), orcModel.isEfetivado());
     }
-     public static OrcamentoModel toModel (Orcamento orc) {
-        return new OrcamentoModel(IE.getId(), Produto.toProdutoModel(IE.getProduto()), IE.getQuantidade(), IE.getEstoqueMin(), IE.getEstoqueMax());
+
+     public static OrcamentoModel toModel (Orcamento orc, List<ItemPedidoModel> lista) {
+        return new OrcamentoModel(orc.getId(), lista, orc.getPais(), orc.getEstado(), orc.getCustoItens(), orc.getImpFederal(), orc.getImpEstadual(), orc.getDesconto(), orc.getDataCriacao(), orc.getCustoConsumidor(), orc.isEfetivado());
     }
 }
