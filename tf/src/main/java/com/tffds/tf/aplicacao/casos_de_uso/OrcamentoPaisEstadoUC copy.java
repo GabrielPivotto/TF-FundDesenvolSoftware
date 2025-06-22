@@ -8,21 +8,25 @@ import org.springframework.stereotype.Component;
 
 
 import com.tffds.tf.aplicacao.dtos.OrcamentoDTO;
-import com.tffds.tf.aplicacao.dtos.PedidoDTO;
 import com.tffds.tf.dominio.servicos.ServicoOrcamento;
 
 @Component
-public class OrcamentosCadastroUC {
+public class OrcamentoPaisEstadoUC {
     private final ServicoOrcamento servicoOrcamento;
 
     @Autowired
-    public OrcamentosCadastroUC(ServicoOrcamento servicoOrcamento) {
+    public OrcamentoPaisEstadoUC(ServicoOrcamento servicoOrcamento) {
         this.servicoOrcamento = servicoOrcamento;
     }
 
-    public OrcamentoDTO run(PedidoDTO pedido) {
+    public List<OrcamentoDTO> run(String pais, String estado) {
 
-        return OrcamentoDTO.fromModel(servicoOrcamento.buildOrcamento(PedidoDTO.toModel(pedido)));
-        
+        return servicoOrcamento.orcamentos()
+        .stream()
+        .filter(o -> o.getPais().equalsIgnoreCase(pais))
+        .filter(o -> o.getEstado().equalsIgnoreCase(estado))
+        .map(o -> OrcamentoDTO.fromModel(o))
+        .toList();
+       
     }
 }

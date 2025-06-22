@@ -46,6 +46,7 @@ public class Controller {
     private OrcamentosEfetivadosUC efetivados;
     private RelatorioUC relatorio;
     private OrcamentosCadastroUC cadastro;
+    private OrcamentoPaisEstadoUC OrcPaisEstado;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -57,7 +58,8 @@ public class Controller {
                       OrcamentoEntreDatasUC OrcEntreDatas,
                       OrcamentosEfetivadosUC efetivados,
                       RelatorioUC relatorio,
-                      OrcamentosCadastroUC cadastro) {
+                      OrcamentosCadastroUC cadastro,
+                      OrcamentoPaisEstadoUC OrcPaisEstado) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
@@ -69,6 +71,7 @@ public class Controller {
         this.efetivados = efetivados;
         this.relatorio = relatorio;
         this.cadastro = cadastro;
+        this.OrcPaisEstado = OrcPaisEstado;
     }
 
     @GetMapping("")
@@ -138,6 +141,14 @@ public class Controller {
     public List<OrcamentoDTO> orcamentosEntre(@PathVariable String from,
                                     @PathVariable String to) {
         return OrcEntreDatas.run(from, to);
+    } 
+
+
+    @GetMapping("orcamentosDe/pais/{pais}/estado/{estado}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> orcamentosDe(@PathVariable String pais,
+                                    @PathVariable String estado) {
+        return OrcPaisEstado.run(pais, estado);
     } 
 
     @GetMapping("orcamentosEfetivados/{Efetiva}")
