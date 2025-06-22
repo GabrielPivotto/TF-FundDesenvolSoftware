@@ -20,6 +20,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosCadastroUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosEfetivadosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoPaisEstadoUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoPorQuantidadeUC;
 import com.tffds.tf.aplicacao.casos_de_uso.ProdutosAcabandoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
@@ -50,6 +51,7 @@ public class Controller {
     private OrcamentosCadastroUC cadastro;
     private OrcamentoPaisEstadoUC OrcPaisEstado;
     private ProdutosAcabandoUC acabando;
+    private OrcamentoPorQuantidadeUC orcPorQuant;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -63,7 +65,8 @@ public class Controller {
                       RelatorioUC relatorio,
                       OrcamentosCadastroUC cadastro,
                       OrcamentoPaisEstadoUC OrcPaisEstado,
-                      ProdutosAcabandoUC acabando) {
+                      ProdutosAcabandoUC acabando,
+                      OrcamentoPorQuantidadeUC orcPorQuant) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
@@ -77,6 +80,7 @@ public class Controller {
         this.cadastro = cadastro;
         this.OrcPaisEstado = OrcPaisEstado;
         this.acabando = acabando;
+        this.orcPorQuant = orcPorQuant;
     }
 
     @GetMapping("")
@@ -154,6 +158,13 @@ public class Controller {
     public List<OrcamentoDTO> orcamentosDe(@PathVariable String pais,
                                     @PathVariable String estado) {
         return OrcPaisEstado.run(pais, estado);
+    } 
+
+    @GetMapping("orcamentosPorQuantidade/min/{min}/max/{max}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> orcamentosPorQuantidade(@PathVariable int min,
+                                    @PathVariable int max) {
+        return orcPorQuant.run(min, max);
     } 
 
     @GetMapping("orcamentosEfetivados/{Efetiva}")
