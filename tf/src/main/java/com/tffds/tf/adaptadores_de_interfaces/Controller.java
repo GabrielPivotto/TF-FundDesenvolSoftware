@@ -20,6 +20,8 @@ import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEfetuaUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosCadastroUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosEfetivadosUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoPaisEstadoUC;
+import com.tffds.tf.aplicacao.casos_de_uso.ProdutosAcabandoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.RelatorioUC;
@@ -48,6 +50,7 @@ public class Controller {
     private RelatorioUC relatorio;
     private OrcamentosCadastroUC cadastro;
     private OrcamentoPaisEstadoUC OrcPaisEstado;
+    private ProdutosAcabandoUC acabando;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
@@ -60,7 +63,8 @@ public class Controller {
                       OrcamentosEfetivadosUC efetivados,
                       RelatorioUC relatorio,
                       OrcamentosCadastroUC cadastro,
-                      OrcamentoPaisEstadoUC OrcPaisEstado) {
+                      OrcamentoPaisEstadoUC OrcPaisEstado,
+                      ProdutosAcabandoUC acabando) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
@@ -73,6 +77,7 @@ public class Controller {
         this.relatorio = relatorio;
         this.cadastro = cadastro;
         this.OrcPaisEstado = OrcPaisEstado;
+        this.acabando = acabando;
     }
 
     @GetMapping("")
@@ -177,5 +182,11 @@ public class Controller {
         
             }                    
         }
+    }
+
+    @GetMapping("estoqueAcabando")
+    @CrossOrigin(origins = "*")
+    public List<ItemDeEstoqueDTO> orcamentosEfetivados() {
+        return acabando.run();
     }
 }
