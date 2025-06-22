@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PedidoModel {
+    private long id;
     private List<ItemPedidoModel> itens;
     private String pais;
     private String estado;
