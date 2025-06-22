@@ -38,7 +38,6 @@ public class OrcamentoModel {
         custoConsumidor = custoItens + impEstadual + impFederal - this.desconto;
     }
 
-
     // constructor que transfere de outros tipos para model
     public OrcamentoModel(long id, List<ItemPedidoModel> itens, String pais, String estado, double custoItens, double impFederal, double impEstadual, double desconto, LocalDate dataCriacao, double custoConsumidor, boolean efetivado) {
         this.id = id;
@@ -53,8 +52,6 @@ public class OrcamentoModel {
         this.custoConsumidor = custoConsumidor;
         this.efetivado = efetivado;
     }
-
-    
 
     public List<ItemPedidoModel> getItens(){return itens;}
 
