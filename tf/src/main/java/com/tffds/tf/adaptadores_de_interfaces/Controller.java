@@ -16,6 +16,7 @@ import com.tffds.tf.aplicacao.casos_de_uso.CatalogoProdutosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.EntradaEmEstoqueUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEfetuaUC;
 import com.tffds.tf.aplicacao.casos_de_uso.OrcamentoEntreDatasUC;
+import com.tffds.tf.aplicacao.casos_de_uso.OrcamentosEfetuadosUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeDisponivelProdutoUC;
 import com.tffds.tf.aplicacao.casos_de_uso.QuantidadeProdutosEspecificoUC;
 import com.tffds.tf.aplicacao.dtos.ItemDeEstoqueDTO;
@@ -38,23 +39,26 @@ public class Controller {
     private OrcamentoEfetuaUC OrcamentoEfetua;
     private OrcamentoEntreDatasUC OrcEntreDatas;
     private ServicoOrcamento orc;
+    private OrcamentosEfetuadosUC efetuados;
 
     @Autowired
     public Controller(CatalogoProdutosUC catalogo,
                       QuantidadeDisponivelProdutoUC qtdProd,
                       QuantidadeProdutosEspecificoUC qtdProdEsp,
                       EntradaEmEstoqueUC entradaEmEstoque,
-                      ServicoOrcamento orc) {
-                      //OrcamentoEfetuaUC OrcamentoEfetua,
-                      //OrcamentoEntreDatasUC OrcEntreDatas) {
+                      ServicoOrcamento orc,
+                      OrcamentoEfetuaUC OrcamentoEfetua,
+                      OrcamentoEntreDatasUC OrcEntreDatas,
+                      OrcamentosEfetuadosUC efetuados) {
 
         this.catalogo = catalogo;
         this.qtdProd = qtdProd;
         this.qtdProdEsp = qtdProdEsp;
         this.entradaEmEstoque = entradaEmEstoque;
         this.orc = orc;
-        //this.OrcamentoEfetua = OrcamentoEfetua;
-        //this.OrcEntreDatas = OrcEntreDatas;
+        this.OrcamentoEfetua = OrcamentoEfetua;
+        this.OrcEntreDatas = OrcEntreDatas;
+        this.efetuados = efetuados;
     }
 
     @GetMapping("")
@@ -112,16 +116,22 @@ public class Controller {
         orc.cadastraOrc(OrcamentoDTO.toModel(o));
     }
 
-    //@GetMapping("efetuaOrcamento/id/{idOrcamento}")
-    //@CrossOrigin(origins = "*")
-    //public boolean efetuaOrcamento(@PathVariable long idOrcamento) {
-    //    return OrcamentoEfetua.run(idOrcamento);
-    //}
-//
-    //@GetMapping("OrcamentosEntre/from/{from}/to/{to}")
-    //@CrossOrigin(origins = "*")
-    //public List<OrcamentoDTO> efetuaOrcamento(@PathVariable String from,
-    //                                @PathVariable String to) {
-    //    return OrcEntreDatas.run(from, to);
-    //}
+    @GetMapping("efetuaOrcamento/id/{idOrcamento}")
+    @CrossOrigin(origins = "*")
+    public boolean efetuaOrcamento(@PathVariable long idOrcamento) {
+        return OrcamentoEfetua.run(idOrcamento);
+    }
+
+    @GetMapping("orcamentosEntre/from/{from}/to/{to}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> orcamentosEntre(@PathVariable String from,
+                                    @PathVariable String to) {
+        return OrcEntreDatas.run(from, to);
+    }
+
+    @GetMapping("orcamentosEfetuados/{efetuados}")
+    @CrossOrigin(origins = "*")
+    public List<OrcamentoDTO> orcamentosEfetuados(@PathVariable boolean efetua) {
+        return efetuados.run(efetua);
+    }
 }
