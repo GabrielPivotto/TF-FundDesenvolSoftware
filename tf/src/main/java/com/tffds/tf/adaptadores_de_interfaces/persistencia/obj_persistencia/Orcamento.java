@@ -19,7 +19,7 @@ public class Orcamento {
     @Id
     private long id;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "orcamento_id")
     private List<ItemPedido> itens;
 

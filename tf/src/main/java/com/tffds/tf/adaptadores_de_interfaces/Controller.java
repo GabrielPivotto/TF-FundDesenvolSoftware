@@ -100,6 +100,17 @@ public class Controller {
         return list2;
     }
 
+    @GetMapping("procurarPorId/id/{idProduto}")
+    @CrossOrigin(origins = "*")
+    public OrcamentoDTO procurarPorId(@PathVariable long idProduto) {
+        return OrcamentoDTO.fromModel(orc.pegaPorId(idProduto));
+    }
+
+    @PostMapping("cadastraOrcamento")
+    @CrossOrigin(origins = "*")
+    public void cadastrar(@RequestBody OrcamentoDTO o){
+        orc.cadastraOrc(OrcamentoDTO.toModel(o));
+    }
 
     //@GetMapping("efetuaOrcamento/id/{idOrcamento}")
     //@CrossOrigin(origins = "*")

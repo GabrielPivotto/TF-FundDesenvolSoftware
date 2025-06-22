@@ -2,6 +2,7 @@ package com.tffds.tf.adaptadores_de_interfaces.persistencia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -52,15 +53,26 @@ public class RepOrcamentosJPA implements InterfaceRepOrcamento{
     }
 
     @Override
-    public OrcamentoModel cadastra(OrcamentoModel orcamento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastra'");
+    public void cadastra(OrcamentoModel orcamento) {
+        Orcamento orc = Orcamento.fromModel(orcamento);
+        repOrc.save(orc);
     }
 
     @Override
     public OrcamentoModel recuperaPorId(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'recuperaPorId'");
+        Optional<Orcamento> orc = repOrc.findById(id);
+        if(orc.isEmpty()) {
+            return null;
+        } else {
+            List<ItemPedido> listaPed = orc.get().getItens(); 
+            List<ItemPedidoModel> listaPedMod = new ArrayList<>(listaPed.size()); 
+            
+            for(ItemPedido ped : listaPed) { 
+                ProdutoModel prod = repProd.consultaPorId(ped.getIdProduto()); 
+                listaPedMod.add(ItemPedido.toModel(ped, prod));
+            }
+
+            return Orcamento.toModel(orc.get(), listaPedMod);
+        }
     }
-    
 }

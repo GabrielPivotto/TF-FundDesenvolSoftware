@@ -39,11 +39,18 @@ public class RepItemDeEstoqueJPA implements InterfaceRepItemDeEstoque {
     }
 
     @Override
-    public void entradaEmEstoque(ItemDeEstoqueModel itemEstoque) {
+    public boolean entradaEmEstoque(ItemDeEstoqueModel itemEstoque) {
         ItemDeEstoque item = ItemDeEstoque.fromModel(itemEstoque);
         repItemEstoque.save(item);
+        return true;
     }
 
-    
-    
+    @Override
+    public boolean baixaEmEstoque(ItemDeEstoqueModel ieM, int qtd) {
+        ItemDeEstoque itemEstoque = ItemDeEstoque.fromModel(ieM);
+        if(itemEstoque.getQuantidade() - qtd < itemEstoque.getEstoqueMin()) {return false;}
+        itemEstoque.setQuantidade(itemEstoque.getQuantidade() - qtd);
+        repItemEstoque.save(itemEstoque);
+        return true;
+    }
 }

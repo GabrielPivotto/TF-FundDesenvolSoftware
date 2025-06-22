@@ -6,6 +6,6 @@ import com.tffds.tf.dominio.modelos.OrcamentoModel;
 
 public interface InterfaceRepOrcamento {
     List<OrcamentoModel> todos();
-    OrcamentoModel cadastra(OrcamentoModel orcamento);
+    void cadastra(OrcamentoModel orcamento);
     OrcamentoModel recuperaPorId(long id);
 }

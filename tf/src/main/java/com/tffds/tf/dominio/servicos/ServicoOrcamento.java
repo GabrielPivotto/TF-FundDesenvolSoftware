@@ -31,9 +31,17 @@ public class ServicoOrcamento{
         this.itemEstoque = itemEstoque;
     }
 
-    public List<OrcamentoModel> todos() {
+    //REMOVER DEPOIS=(ou nao)========================|
+    public List<OrcamentoModel> todos() {               
         return orcamento.todos();
     }
+    public OrcamentoModel pegaPorId(Long id) {
+        return orcamento.recuperaPorId(id);
+    }
+    public void cadastraOrc(OrcamentoModel orcM) {
+        orcamento.cadastra(orcM);
+    }
+    //==============================================
 
     //public OrcamentoModel buildOrcamento(PedidoModel pedido, String pais, String estado){
 //

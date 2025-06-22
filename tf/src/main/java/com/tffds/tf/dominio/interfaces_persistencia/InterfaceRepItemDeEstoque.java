@@ -8,5 +8,6 @@ import java.util.List;
 public interface InterfaceRepItemDeEstoque {
     List<ItemDeEstoqueModel> emEstoque();
     ItemDeEstoqueModel pegaPorId(Long id);
-    void entradaEmEstoque(ItemDeEstoqueModel itemEstoque);
+    boolean entradaEmEstoque(ItemDeEstoqueModel itemEstoque);
+    boolean baixaEmEstoque(ItemDeEstoqueModel itemEstoque, int qtd);
 }
