@@ -75,4 +75,17 @@ public class RepOrcamentosJPA implements InterfaceRepOrcamento{
             return Orcamento.toModel(orc.get(), listaPedMod);
         }
     }
+
+    @Override
+    public void marcaComoEfetivado(long id) {
+        Optional<Orcamento> orc = repOrc.findById(id);
+        if(!orc.isEmpty()) {
+            return;
+        }
+        else{
+            orc.get().setEfetivado(true);
+            repOrc.save(orc.get());
+        }
+    }
+
 }
