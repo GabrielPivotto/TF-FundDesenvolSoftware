@@ -72,4 +72,10 @@ public class Controller {
                                   @PathVariable int qtd) {
         return entradaEmEstoque.run(idProduto, qtd);
     }
+
+    @GetMapping("efetuaOrcamento/id/{idProduto}")
+    @CrossOrigin(origins = "*")
+    public boolean efetuaORcamento(@PathVariable long irOrcamento) {
+        return orcamentoEfetua.run(idOrcamento);
+    }
 }
