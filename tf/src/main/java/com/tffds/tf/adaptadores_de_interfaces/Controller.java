@@ -46,7 +46,7 @@ public class Controller {
     private EntradaEmEstoqueUC entradaEmEstoque;
     private OrcamentoEfetuaUC OrcamentoEfetiva;
     private OrcamentoEntreDatasUC OrcEntreDatas;
-    private ServicoOrcamento orc;
+    //private ServicoOrcamento orc;
     private OrcamentosEfetivadosUC efetivados;
     private RelatorioUC relatorio;
     private OrcamentosCadastroUC cadastro;
@@ -59,7 +59,6 @@ public class Controller {
                       QuantidadeDisponivelProdutoUC qtdProd,
                       QuantidadeProdutosEspecificoUC qtdProdEsp,
                       EntradaEmEstoqueUC entradaEmEstoque,
-                      ServicoOrcamento orc,
                       OrcamentoEfetuaUC OrcamentoEfetiva,
                       OrcamentoEntreDatasUC OrcEntreDatas,
                       OrcamentosEfetivadosUC efetivados,
@@ -115,17 +114,17 @@ public class Controller {
         return entradaEmEstoque.run(idProduto, qtd);
     }
 
-    @GetMapping("todos")
-    @CrossOrigin(origins = "*")
-    public List<OrcamentoDTO> todos() {
-        List<OrcamentoModel> list = orc.todos();
-        List<OrcamentoDTO> list2 = new ArrayList<>(list.size());
-        for(OrcamentoModel orcM : list) {
-            list2.add(OrcamentoDTO.fromModel(orcM));
-        }
-        
-        return list2;
-    }
+    //@GetMapping("todos")
+    //@CrossOrigin(origins = "*")
+    //public List<OrcamentoDTO> todos() {
+    //    List<OrcamentoModel> list = orc.todos();
+    //    List<OrcamentoDTO> list2 = new ArrayList<>(list.size());
+    //    for(OrcamentoModel orcM : list) {
+    //        list2.add(OrcamentoDTO.fromModel(orcM));
+    //    }
+    //    
+    //    return list2;
+    //}
 
     @GetMapping("procurarPorId/id/{idProduto}")
     @CrossOrigin(origins = "*")

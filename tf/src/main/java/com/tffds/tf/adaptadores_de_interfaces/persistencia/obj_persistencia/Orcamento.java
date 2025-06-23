@@ -49,8 +49,6 @@ public class Orcamento {
         this.efetivado = efetivado;
     }
 
-    public void incId() {this.id++;}
-
     public long getId() {return id;}
 
     public void incId() {this.id++;}
