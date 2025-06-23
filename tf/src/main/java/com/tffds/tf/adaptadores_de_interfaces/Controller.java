@@ -59,6 +59,7 @@ public class Controller {
                       QuantidadeDisponivelProdutoUC qtdProd,
                       QuantidadeProdutosEspecificoUC qtdProdEsp,
                       EntradaEmEstoqueUC entradaEmEstoque,
+                      //ServicoOrcamento orc,
                       OrcamentoEfetuaUC OrcamentoEfetiva,
                       OrcamentoEntreDatasUC OrcEntreDatas,
                       OrcamentosEfetivadosUC efetivados,
@@ -72,7 +73,7 @@ public class Controller {
         this.qtdProd = qtdProd;
         this.qtdProdEsp = qtdProdEsp;
         this.entradaEmEstoque = entradaEmEstoque;
-        this.orc = orc;
+        //this.orc = orc;
         this.OrcamentoEfetiva = OrcamentoEfetiva;
         this.OrcEntreDatas = OrcEntreDatas;
         this.efetivados = efetivados;
@@ -126,11 +127,11 @@ public class Controller {
     //    return list2;
     //}
 
-    @GetMapping("procurarPorId/id/{idProduto}")
-    @CrossOrigin(origins = "*")
-    public OrcamentoDTO procurarPorId(@PathVariable long idProduto) {
-        return OrcamentoDTO.fromModel(orc.pegaPorId(idProduto));
-    }
+    //@GetMapping("procurarPorId/id/{idProduto}")
+    //@CrossOrigin(origins = "*")
+    //public OrcamentoDTO procurarPorId(@PathVariable long idProduto) {
+    //    return OrcamentoDTO.fromModel(orc.pegaPorId(idProduto));
+    //}
 
     @PostMapping("cadastraOrcamento")
     @CrossOrigin(origins = "*")
