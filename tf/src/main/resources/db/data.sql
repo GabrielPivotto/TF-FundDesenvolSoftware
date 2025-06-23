@@ -27,7 +27,7 @@ INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_ma
 
 INSERT INTO orcamento (id, pais, estado, custo_itens, imp_federal, imp_estadual,
                       desconto, data_criacao, custo_consumidor, efetivado) VALUES (1, 'BR', 'SP', 200.00, 20.00, 10.00,
-                                                                                   15.00, CURRENT_DATE, 215.00, FALSE);
+                                                                                   15.00, '2025-06-01', 215.00, FALSE);
 
 INSERT INTO item_pedido (id_produto, quantidade, preco, orcamento_id) VALUES (50, 2, 100.00, 1);
 INSERT INTO item_pedido (id_produto, quantidade, preco, orcamento_id) VALUES (20, 1, 100.00, 1);
@@ -50,7 +50,7 @@ INSERT INTO item_pedido (id_produto, quantidade, preco, orcamento_id) VALUES (14
 
 INSERT INTO orcamento (id, pais, estado, custo_itens, imp_federal, imp_estadual,
                       desconto, data_criacao, custo_consumidor, efetivado) VALUES (4, 'BR', 'PE', 200.00, 20.00, 10.00,
-                                                                                  15.00, CURRENT_DATE, 215.00, TRUE);
+                                                                                  15.00, CURRENT_DATE, 215.00, FALSE);
 
 INSERT INTO item_pedido (id_produto, quantidade, preco, orcamento_id) VALUES (90, 3, 100.00, 4);
 INSERT INTO item_pedido (id_produto, quantidade, preco, orcamento_id) VALUES (100, 5, 100.00, 4);

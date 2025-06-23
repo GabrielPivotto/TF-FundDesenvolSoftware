@@ -168,7 +168,7 @@ public class Controller {
         return orcPorQuant.run(min, max);
     } 
 
-    @GetMapping("orcamentosEfetivados/{Efetiva}")
+    @GetMapping("orcamentosEfetivados/{efetiva}")
     @CrossOrigin(origins = "*")
     public List<OrcamentoDTO> orcamentosEfetivados(@PathVariable boolean efetiva) {
         return efetivados.run(efetiva);
