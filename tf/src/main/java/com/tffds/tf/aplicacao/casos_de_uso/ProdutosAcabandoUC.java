@@ -27,7 +27,7 @@ public class ProdutosAcabandoUC {
 
         list = new ArrayList<>(list);
 
-        list.sort(Comparator.comparingDouble(p1 ->(double)(p1.getQuantidade()-p1.getEstoqueMin())/(double)(p1.getEstoqueMax())-p1.getEstoqueMin()));
+        list.sort(Comparator.comparingDouble(p1 ->(double)(p1.getQuantidade()-p1.getEstoqueMin())/(double)(p1.getEstoqueMax()-p1.getEstoqueMin())));
         return list;
     }
 }
