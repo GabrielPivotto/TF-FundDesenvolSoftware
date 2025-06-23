@@ -54,7 +54,6 @@ public class OrcamentoModel {
 
     public List<ItemPedidoModel> getItens(){return itens;}
 
-
     public long getId() {
         return this.id;
     }
