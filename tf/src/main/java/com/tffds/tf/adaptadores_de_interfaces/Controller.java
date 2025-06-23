@@ -200,7 +200,7 @@ public class Controller {
 
     @GetMapping("estoqueAcabando")
     @CrossOrigin(origins = "*")
-    public List<ItemDeEstoqueDTO> orcamentosEfetivados() {
+    public List<ItemDeEstoqueDTO> estoqueAcabando() {
         return acabando.run();
     }
 }
