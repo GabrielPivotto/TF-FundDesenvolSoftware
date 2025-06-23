@@ -133,7 +133,7 @@ public class Controller {
     @CrossOrigin(origins = "*")
     public OrcamentoDTO cadastrar(@RequestBody PedidoDTO ped){
         //orc.cadastraOrc(OrcamentoDTO.toModel(o));
-        cadastro.run(ped);
+        return cadastro.run(ped);
     }
 
     @GetMapping("efetivaOrcamento/id/{idOrcamento}")
@@ -174,14 +174,17 @@ public class Controller {
                                     .header("Content-Type", "text/html")
                                     .body(relatorioHtml);
             }
-            case "text": {
-            default:
+            case "txt": {
                 return ResponseEntity.ok()
                                     .header("Content-Type", "text/plain")
                                     .body(relatorio.run(formato));
         
-            }                    
+            } 
         }
+            
+        return ResponseEntity.ok()
+                             .header("Content-Type", "text/plain")
+                             .body("Erro de formatacao: valor invalido");
     }
 
     @GetMapping("estoqueAcabando")

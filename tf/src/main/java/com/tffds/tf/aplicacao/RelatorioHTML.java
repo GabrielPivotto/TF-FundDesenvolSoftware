@@ -12,13 +12,13 @@ public class RelatorioHTML implements InterfaceRelatorio{
     public String gerarRelatorio(Map<ProdutoDTO, Integer> valores) {
         StringBuilder relatorioHtml = new StringBuilder();
         relatorioHtml.append("<html><body>");
-        relatorioHtml.append("<h1>Relatório de Vendas</h1>");
-        relatorioHtml.append("<table border='1'><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Valor</th></tr>");
+        relatorioHtml.append("<h1>Relatorio de Vendas</h1>");
+        relatorioHtml.append("<table border='1'><tr><th>Nome do Produto</th><th>ID</th><th>Quantidade total vendida</th><th>Lucro (calculo unitario)</th></tr>");
                 
         for(ProdutoDTO chave : valores.keySet()) {
             int qtd = valores.get(chave); 
 
-            relatorioHtml.append(String.format("<tr><td>Nome do Produto: %s</td><td>ID: %d</td><td>Quantidade total vendida: %d</td><td>Lucro (calculo unitario): %.2f</td></tr>", 
+            relatorioHtml.append(String.format("<tr><td>%s</td><td>%d</td><td>%d</td><td>%.2f</td></tr>", 
                 chave.getDescricao(), 
                 chave.getId(), 
                 qtd, 
@@ -29,5 +29,4 @@ public class RelatorioHTML implements InterfaceRelatorio{
                 
         return relatorioHtml.toString();
     }
-    
 }
