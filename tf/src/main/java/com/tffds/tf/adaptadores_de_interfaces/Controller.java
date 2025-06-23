@@ -136,7 +136,7 @@ public class Controller {
     @CrossOrigin(origins = "*")
     public OrcamentoDTO cadastrar(@RequestBody PedidoDTO ped){
         //orc.cadastraOrc(OrcamentoDTO.toModel(o));
-        cadastro.run(ped);
+        return cadastro.run(ped);
     }
 
     @GetMapping("efetivaOrcamento/id/{idOrcamento}")
@@ -183,7 +183,7 @@ public class Controller {
 
     @GetMapping("estoqueAcabando")
     @CrossOrigin(origins = "*")
-    public List<ItemDeEstoqueDTO> orcamentosEfetivados() {
+    public List<ItemDeEstoqueDTO> estoqueAcabando() {
         return acabando.run();
     }
 }

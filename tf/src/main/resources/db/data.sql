@@ -8,7 +8,7 @@ INSERT INTO produto (id,descricao,preco_unitario) VALUES (60,'destruicao-numero-
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max) VALUES (100,10,20,5,50);
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max) VALUES (200,20,10,5,30);
 INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max) VALUES (300,40,8,5,50);
-INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max) VALUES (400,60,15,5,50);
+INSERT INTO item_de_estoque (id, produto_id, quantidade, estoque_min, estoque_max) VALUES (400,60,6,5,50);
 
 INSERT INTO orcamento (id, pais, estado, custo_itens, imp_federal, imp_estadual,
                       desconto, data_criacao, custo_consumidor, efetivado) VALUES (1, 'BR', 'SP', 200.00, 20.00, 10.00,

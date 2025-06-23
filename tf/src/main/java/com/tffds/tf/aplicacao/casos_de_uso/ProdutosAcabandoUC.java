@@ -8,6 +8,8 @@ import com.tffds.tf.aplicacao.dtos.ProdutoDTO;
 import com.tffds.tf.dominio.servicos.ServicoItemDeEstoque;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 @Component
 public class ProdutosAcabandoUC {
@@ -19,8 +21,13 @@ public class ProdutosAcabandoUC {
     }
 
     public List<ItemDeEstoqueDTO> run() {
-        return servicoEst.podutosDisponiveis().stream().sorted((p1, p2) -> Double
-        .compare((p1.getQuantidade()-p1.getEstoqueMin())/(p1.getEstoqueMax()-p1.getEstoqueMin()), (p2.getQuantidade()-p2.getEstoqueMin())/(p2.getEstoqueMax()-p2.getEstoqueMin()))) 
+        List<ItemDeEstoqueDTO> list = servicoEst.podutosDisponiveis().stream()
         .map(p -> ItemDeEstoqueDTO.fromModel(p)).toList();
+
+
+        list = new ArrayList<>(list);
+
+        list.sort(Comparator.comparingDouble(p1 ->(double)(p1.getQuantidade()-p1.getEstoqueMin())/(double)(p1.getEstoqueMax())-p1.getEstoqueMin()));
+        return list;
     }
 }
