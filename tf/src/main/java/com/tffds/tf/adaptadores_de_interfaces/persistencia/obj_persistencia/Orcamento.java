@@ -53,6 +53,8 @@ public class Orcamento {
 
     public long getId() {return id;}
 
+    public void incId() {this.id++;}
+
     public List<ItemPedido> getItens() {return itens;}
 
     public String getPais() {return pais;}
