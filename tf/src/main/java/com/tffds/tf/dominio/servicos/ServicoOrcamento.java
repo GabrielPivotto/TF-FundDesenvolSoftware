@@ -107,8 +107,5 @@ public class ServicoOrcamento{
         return true;
     }
 
-    public List<OrcamentoModel>  orcamentosPorQuantidade(){
-        return orcamento.todos();
-    }
 
 }
