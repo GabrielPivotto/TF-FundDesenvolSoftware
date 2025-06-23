@@ -55,6 +55,7 @@ public class RepOrcamentosJPA implements InterfaceRepOrcamento{
     @Override
     public void cadastra(OrcamentoModel orcamento) {
         Orcamento orc = Orcamento.fromModel(orcamento);
+        while(repOrc.findById(orc.getId()).isPresent()) {orc.incId();}
         repOrc.save(orc);
     }
 
